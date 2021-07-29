@@ -1,1 +1,1 @@
-Using Netmiko and RESTCONF quires for Cisco CSR1000v.
+Using Netmiko and RESTCONF queries for Cisco CSR1000v.
