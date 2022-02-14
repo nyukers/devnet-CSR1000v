@@ -1,5 +1,9 @@
+# Cisco CSR1000v workshop online
+#
+# DevOps-MDP-01, 2022
+
 from ncclient import manager
-from xml.dom.minidom import *
+import xml.dom.minidom
 
 m = manager.connect(
     host="sandbox-iosxe-latest-1.cisco.com",
@@ -8,20 +12,23 @@ m = manager.connect(
     password="C1sco12345",
     hostkey_verify=False
     )
+	
 # Changing the hostname
 netconf_data = """
-<config>
+<config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
     <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
-        <hostname>NEWHOSTNAME</hostname>
+        <hostname>SUPERHOST</hostname>
     </native>
 </config>"""
 
 netconf_reply = m.edit_config(target="running", config=netconf_data)
 print(xml.dom.minidom.parseString(netconf_reply.xml).toprettyxml())
 
+input('next create loopback')
+
 # Creating a Loopback interface
 netconf_data = """
-<config>
+<config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
     <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
         <interface>
             <Loopback>
@@ -44,9 +51,11 @@ netconf_data = """
 netconf_reply = m.edit_config(target="running", config=netconf_data)
 print(xml.dom.minidom.parseString(netconf_reply.xml).toprettyxml())
 
+input('next the same IP adr to loopback')
+
 # Trying to create a new Loopback interface with the same IP address as the previous one
 netconf_data = """
-<config>
+<config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
     <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
         <interface>
             <Loopback>

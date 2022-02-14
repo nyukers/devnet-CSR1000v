@@ -1,3 +1,7 @@
+# Cisco CSR1000v workshop online
+#
+# DevOps-MDP-01, 2022
+
 import json
 import requests
 
